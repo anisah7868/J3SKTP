@@ -151,7 +151,7 @@ iframe {
 }
 @media (max-width:520px) {
   header { padding:22px 14px 20px; }
-  header h1 { font-size:28px; }
+  header h1 { font-size:clamp(25px,7vw,34px); line-height:1.12; letter-spacing:-.4px; }
   header p { font-size:14px; margin-top:8px; }
   main { padding:14px 12px 28px; }
   .search-card { padding:15px; border-radius:16px; }
@@ -163,14 +163,17 @@ iframe {
   .hint { font-size:12px; }
 }
 @media (max-width:360px) {
-  header h1 { font-size:25px; }
+  header h1 { font-size:clamp(19px,5.8vw,25px); white-space:nowrap; letter-spacing:-.8px; }
   .tab { font-size:13px; }
 }
+
+header h1 span{display:block;}
+
 </style>
 </head>
 <body>
 <header>
-  <h1>CARIAN JADUAL SK TELOK PULAI</h1>
+  <h1><span>CARIAN JADUAL</span><span>SK TELOK PULAI</span></h1>
   <p>Jadual berkuat kuasa 12 Oktober 2026</p>
 </header>
 
