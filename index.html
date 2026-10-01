@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carian Jadual SK Telok Pulai — 12 Oktober 2026</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f6f8;color:#1f2937}
+header{background:#123b5d;color:white;padding:22px;text-align:center}
+main{max-width:1000px;margin:24px auto;padding:0 16px}
+.search{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+input,select,button{font-size:16px;padding:12px;border-radius:8px;border:1px solid #cbd5e1}
+input{flex:1;min-width:260px}
+button{background:#123b5d;color:white;cursor:pointer}
+.results{display:grid;gap:10px}
+.item{background:white;border:1px solid #e2e8f0;border-radius:10px;padding:14px}
+.item b{display:block;margin-bottom:6px}
+.item a{display:inline-block;margin-top:8px;text-decoration:none;background:#0f766e;color:white;padding:9px 13px;border-radius:7px}
+.viewer{margin-top:22px;background:white;border-radius:10px;overflow:hidden;border:1px solid #dbe2ea}
+.viewer iframe{width:100%;height:75vh;border:0}
+.small{color:#64748b;font-size:14px}
+</style>
+</head>
+<body>
+<header>
+<h1>CARian JADUAL SK TELOK PULAI</h1>
+<div>Jadual berkuat kuasa 12 Oktober 2026</div>
+</header>
+<main>
+<div class="search">
+<select id="type">
+<option value="">Semua</option>
+<option value="Guru">Guru</option>
+<option value="Kelas">Kelas</option>
+<option value="Bilik Khas">Bilik Khas</option>
+</select>
+<input id="q" placeholder="Taip nama guru, kelas atau bilik khas...">
+<button onclick="search()">Cari</button>
+</div>
+<div class="small" id="count"></div>
+<div class="results" id="results"></div>
+<div class="viewer" id="viewer" style="display:none">
+<iframe id="pdf"></iframe>
+</div>
+</main>
+<script>
+const records = [
+  {
+    "type": "Guru",
+    "label": "CIK AINUL ADAWIYAH BINTI JUHEIRI",
+    "file": "JADUAL GURU/CIK AINUL ADAWIYAH BINTI JUHEIRI.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "CIK NURUL HAFIZAH IZZATI BINTI MOHAMAD ROFIE",
+    "file": "JADUAL GURU/CIK NURUL HAFIZAH IZZATI BINTI MOHAMAD ROFIE.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "EN. ABD RAZAK BIN SULAIMAN",
+    "file": "JADUAL GURU/EN. ABD RAZAK BIN SULAIMAN.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "EN. AHMAD FAISAL BIN ABDUL AZIZ",
+    "file": "JADUAL GURU/EN. AHMAD FAISAL BIN ABDUL AZIZ.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "EN. AHMAD SHUKRI BIN SAID",
+    "file": "JADUAL GURU/EN. AHMAD SHUKRI BIN SAID.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "EN. AZRIN BIN BASARANG",
+    "file": "JADUAL GURU/EN. AZRIN BIN BASARANG.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "EN. BALAMURALE A-L VELU",
+    "file": "JADUAL GURU/EN. BALAMURALE A-L VELU.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "EN. HASNIZAM BIN TUMIN",
+    "file": "JADUAL GURU/EN. HASNIZAM BIN TUMIN.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "EN. KHAIRUL ANUAR BIN OTHMAN",
+    "file": "JADUAL GURU/EN. KHAIRUL ANUAR BIN OTHMAN.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "EN. M. TUSIRAN BIN SARIDIN",
+    "file": "JADUAL GURU/EN. M. TUSIRAN BIN SARIDIN.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "EN. MOHAMMAD HAFIZ BIN AB MANAP",
+    "file": "JADUAL GURU/EN. MOHAMMAD HAFIZ BIN AB MANAP.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "EN. MOHD AZREE BIN MOHD JAMIL",
+    "file": "JADUAL GURU/EN. MOHD AZREE BIN MOHD JAMIL.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "EN. MOHD MUHAN BIN ISMAIL",
+    "file": "JADUAL GURU/EN. MOHD MUHAN BIN ISMAIL.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "EN. MOHD SYAZLY BIN ABDUL HALIL",
+    "file": "JADUAL GURU/EN. MOHD SYAZLY BIN ABDUL HALIL.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. ADLIA BINTI JAMADIN",
+    "file": "JADUAL GURU/PN. ADLIA BINTI JAMADIN.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. ARIZAINI BINTI ABDULLAH",
+    "file": "JADUAL GURU/PN. ARIZAINI BINTI ABDULLAH.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. HALISA BINTI HUSAIN",
+    "file": "JADUAL GURU/PN. HALISA BINTI HUSAIN.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. HASEENA BANU BINTI ABDUL KALAM",
+    "file": "JADUAL GURU/PN. HASEENA BANU BINTI ABDUL KALAM.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. HJH. MARIYATI BINTI AWANG",
+    "file": "JADUAL GURU/PN. HJH. MARIYATI BINTI AWANG.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. HJH. YUSNITA BINTI MOHAMAD YUSAK",
+    "file": "JADUAL GURU/PN. HJH. YUSNITA BINTI MOHAMAD YUSAK.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. KU ZUNAIDAH BINTI KU AHMAD",
+    "file": "JADUAL GURU/PN. KU ZUNAIDAH BINTI KU AHMAD.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. NOOR ASYIKIN BINTI MD NOOR",
+    "file": "JADUAL GURU/PN. NOOR ASYIKIN BINTI MD NOOR.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. NOOR AZIAH BINTI ZAINAL",
+    "file": "JADUAL GURU/PN. NOOR AZIAH BINTI ZAINAL.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. NOOR HAYATI BINTI HARUN",
+    "file": "JADUAL GURU/PN. NOOR HAYATI BINTI HARUN.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. NORHIDAYAH BINTI JAILANI",
+    "file": "JADUAL GURU/PN. NORHIDAYAH BINTI JAILANI.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. NORMALINA BINTI MOHD SANI",
+    "file": "JADUAL GURU/PN. NORMALINA BINTI MOHD SANI.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. NORRINA BINTI AHMAD JOHARI",
+    "file": "JADUAL GURU/PN. NORRINA BINTI AHMAD JOHARI.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. NORSYAHIDA BINTI IDRIS",
+    "file": "JADUAL GURU/PN. NORSYAHIDA BINTI IDRIS.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. SITI NURBAYA BINTI MOHD AMIN",
+    "file": "JADUAL GURU/PN. SITI NURBAYA BINTI MOHD AMIN.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. SITI SULHANA BINTI MOHD NAWI",
+    "file": "JADUAL GURU/PN. SITI SULHANA BINTI MOHD NAWI.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. SULASENA A-P PALANIMUTHU",
+    "file": "JADUAL GURU/PN. SULASENA A-P PALANIMUTHU.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. TEE SUAT RING",
+    "file": "JADUAL GURU/PN. TEE SUAT RING.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. THANALETCHUMY A-P MANICKAM",
+    "file": "JADUAL GURU/PN. THANALETCHUMY A-P MANICKAM.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. THULSY A-P SUBRAMANIAM",
+    "file": "JADUAL GURU/PN. THULSY A-P SUBRAMANIAM.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. VANITHAMANI A-P BALASANTHER",
+    "file": "JADUAL GURU/PN. VANITHAMANI A-P BALASANTHER.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. VICKNEASVARIE A-P RAMAMUTHIE",
+    "file": "JADUAL GURU/PN. VICKNEASVARIE A-P RAMAMUTHIE.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. ZAHIRATUL FIQRIYYAH BINTI ZAKARIA",
+    "file": "JADUAL GURU/PN. ZAHIRATUL FIQRIYYAH BINTI ZAKARIA.pdf"
+  },
+  {
+    "type": "Guru",
+    "label": "PN. ZAITON BINTI HAMID",
+    "file": "JADUAL GURU/PN. ZAITON BINTI HAMID.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "4 UIA",
+    "file": "JADUAL KELAS/4 UIA.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "4 UKM",
+    "file": "JADUAL KELAS/4 UKM.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "4 UM",
+    "file": "JADUAL KELAS/4 UM.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "4 UPM",
+    "file": "JADUAL KELAS/4 UPM.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "4 UTM",
+    "file": "JADUAL KELAS/4 UTM.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "5 UIA",
+    "file": "JADUAL KELAS/5 UIA.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "5 UKM",
+    "file": "JADUAL KELAS/5 UKM.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "5 UM",
+    "file": "JADUAL KELAS/5 UM.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "5 UPM",
+    "file": "JADUAL KELAS/5 UPM.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "5 UTM",
+    "file": "JADUAL KELAS/5 UTM.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "6 UIA",
+    "file": "JADUAL KELAS/6 UIA.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "6 UKM",
+    "file": "JADUAL KELAS/6 UKM.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "6 UM",
+    "file": "JADUAL KELAS/6 UM.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "6 UPM",
+    "file": "JADUAL KELAS/6 UPM.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "6 USM",
+    "file": "JADUAL KELAS/6 USM.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "6 UTM",
+    "file": "JADUAL KELAS/6 UTM.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "Halaman_17",
+    "file": "JADUAL KELAS/Halaman_17.pdf"
+  },
+  {
+    "type": "Kelas",
+    "label": "Halaman_18",
+    "file": "JADUAL KELAS/Halaman_18.pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "BK MZK",
+    "file": "JADUAL BILIK KHAS/BK MZK.pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "BK PEMULIHAN",
+    "file": "JADUAL BILIK KHAS/BK PEMULIHAN.pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "BK RBT",
+    "file": "JADUAL BILIK KHAS/BK RBT.pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "Halaman_12",
+    "file": "JADUAL BILIK KHAS/Halaman_12.pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "ICT1",
+    "file": "JADUAL BILIK KHAS/ICT1.pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "ICT2",
+    "file": "JADUAL BILIK KHAS/ICT2.pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "JQAF1",
+    "file": "JADUAL BILIK KHAS/JQAF1.pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "JQAF2",
+    "file": "JADUAL BILIK KHAS/JQAF2.pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "JQAF3",
+    "file": "JADUAL BILIK KHAS/JQAF3.pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "MKML SN",
+    "file": "JADUAL BILIK KHAS/MKML SN.pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "PSS (BI)",
+    "file": "JADUAL BILIK KHAS/PSS (BI).pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "PSS (BM)",
+    "file": "JADUAL BILIK KHAS/PSS (BM).pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "SURAU 1",
+    "file": "JADUAL BILIK KHAS/SURAU 1.pdf"
+  },
+  {
+    "type": "Bilik Khas",
+    "label": "SURAU 2",
+    "file": "JADUAL BILIK KHAS/SURAU 2.pdf"
+  }
+];
+function search(){
+  const q=document.getElementById('q').value.trim().toLowerCase();
+  const type=document.getElementById('type').value;
+  const list=records.filter(r=>(!type||r.type===type)&&(!q||r.label.toLowerCase().includes(q)));
+  document.getElementById('count').textContent=list.length+' rekod dijumpai';
+  document.getElementById('results').innerHTML=list.map((r,i)=>`
+    <div class="item">
+      <b>${r.label}</b>
+      <div class="small">${r.type}</div>
+      <a href="#" onclick="openPdf(${i});return false;">Buka PDF</a>
+    </div>`).join('');
+  window.current=list;
+}
+function openPdf(i){
+  const r=window.current[i];
+  document.getElementById('pdf').src=encodeURI(r.file);
+  document.getElementById('viewer').style.display='block';
+  window.scrollTo({top:document.getElementById('viewer').offsetTop-10,behavior:'smooth'});
+}
+document.getElementById('q').addEventListener('input',search);
+search();
+</script>
+</body>
+</html>
