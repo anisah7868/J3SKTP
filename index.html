@@ -3,176 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#07527a">
+<meta name="theme-color" content="#18a9a0">
 <title>Carian Jadual SK Telok Pulai</title>
 <style>
 :root {
-  --blue:#07527a;
-  --blue-dark:#063f5e;
-  --bg:#f3f7fa;
+  --teal:#18a9a0;
+  --teal-dark:#087f7a;
+  --blue:#1677b7;
+  --green:#79c83b;
+  --yellow:#d8e83a;
+  --pink:#f06a8a;
+  --bg:#f4fbfa;
   --text:#17324d;
-  --muted:#6b7c8c;
-  --line:#d7e0e7;
+  --muted:#657786;
+  --line:#d9e6e6;
 }
-* { box-sizing:border-box; }
-html,body { margin:0; padding:0; }
-body {
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
   font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
+  background:linear-gradient(180deg,#eefaf8 0%,#f8fbff 100%);
   color:var(--text);
   min-height:100vh;
 }
-header {
-  background:linear-gradient(180deg,var(--blue),var(--blue-dark));
+header{
+  background:linear-gradient(135deg,var(--teal-dark),var(--blue));
   color:#fff;
   text-align:center;
-  padding:26px 16px 24px;
+  padding:18px 14px 22px;
+  border-bottom-left-radius:26px;
+  border-bottom-right-radius:26px;
+  box-shadow:0 5px 18px rgba(8,127,122,.20);
 }
-header h1 {
+.badge{
+  width:82px;
+  height:82px;
+  object-fit:contain;
+  background:#fff;
+  border-radius:50%;
+  padding:5px;
+  display:block;
+  margin:0 auto 10px;
+  box-shadow:0 3px 12px rgba(0,0,0,.16);
+}
+header h1{
   margin:0;
-  font-size:clamp(27px,7vw,44px);
+  font-size:clamp(25px,7vw,34px);
   line-height:1.12;
-  font-weight:800;
-  letter-spacing:-.5px;
+  letter-spacing:-.3px;
 }
-header p {
-  margin:10px 0 0;
-  font-size:16px;
+header h1 span{display:block}
+header p{
+  margin:9px 0 0;
+  font-size:15px;
   line-height:1.4;
-  opacity:.95;
+  opacity:.97;
 }
-main {
+main{
   width:min(720px,100%);
   margin:0 auto;
-  padding:20px 14px 34px;
+  padding:16px 12px 30px;
 }
-.search-card {
+.search-card{
   background:#fff;
-  border:1px solid #e3eaf0;
+  border:1px solid var(--line);
   border-radius:18px;
-  padding:18px;
-  box-shadow:0 8px 28px rgba(18,52,77,.09);
+  padding:15px;
+  box-shadow:0 7px 25px rgba(23,50,77,.08);
 }
-.section-title {
+.section-title{
+  text-align:center;
   font-size:15px;
   font-weight:700;
   margin:0 0 10px;
-  color:var(--text);
 }
-.tabs {
+.tabs{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-bottom:14px;
+  gap:7px;
+  margin-bottom:13px;
 }
-.tab {
-  min-height:48px;
-  padding:10px 8px;
+.tab{
+  min-height:46px;
+  padding:8px 5px;
   border:1px solid var(--line);
   border-radius:11px;
   background:#fff;
   color:var(--text);
-  font-size:15px;
+  font-size:14px;
   font-weight:700;
   cursor:pointer;
 }
-.tab.active {
-  background:var(--blue);
+.tab.active{
+  background:linear-gradient(135deg,var(--teal),var(--blue));
   color:#fff;
-  border-color:var(--blue);
+  border-color:var(--teal);
 }
-.search-row {
+.search-row{
   display:grid;
-  grid-template-columns:1fr 92px;
-  gap:9px;
+  grid-template-columns:1fr 88px;
+  gap:8px;
 }
-input {
+input{
   width:100%;
-  height:52px;
-  padding:0 15px;
-  border:1px solid #cfd9e1;
+  height:51px;
+  padding:0 14px;
+  border:1px solid #cfdedf;
   border-radius:11px;
   background:#fff;
   color:var(--text);
   font-size:17px;
   outline:none;
 }
-input:focus {
-  border-color:var(--blue);
-  box-shadow:0 0 0 3px rgba(7,82,122,.10);
+input:focus{
+  border-color:var(--teal);
+  box-shadow:0 0 0 3px rgba(24,169,160,.10);
 }
-button.search {
-  height:52px;
+button.search{
+  height:51px;
   border:0;
   border-radius:11px;
-  background:var(--blue);
+  background:linear-gradient(135deg,var(--pink),#e84f74);
   color:#fff;
-  font-size:16px;
-  font-weight:700;
+  font-size:15px;
+  font-weight:800;
   cursor:pointer;
+  box-shadow:0 3px 8px rgba(240,106,138,.25);
 }
-.hint {
-  margin:11px 2px 0;
+.hint{
+  margin:10px 2px 0;
   color:var(--muted);
-  font-size:13px;
+  font-size:12px;
   line-height:1.4;
   text-align:center;
 }
-.message {
+.message{
   display:none;
-  margin-top:12px;
-  padding:11px 12px;
+  margin-top:11px;
+  padding:10px 12px;
   border-radius:10px;
-  background:#f0f4f7;
+  background:#f1f8f7;
   color:var(--text);
   font-size:14px;
   text-align:center;
 }
-.viewer {
+.viewer{
   display:none;
-  margin-top:16px;
+  margin-top:15px;
   background:#fff;
   border:1px solid #e0e7ed;
   border-radius:14px;
   overflow:hidden;
   box-shadow:0 5px 20px rgba(18,52,77,.08);
 }
-.viewer-title {
+.viewer-title{
   padding:12px 14px;
   border-bottom:1px solid #e5ebef;
   font-size:15px;
   font-weight:700;
 }
-iframe {
-  display:block;
-  width:100%;
-  height:72vh;
-  border:0;
+iframe{display:block;width:100%;height:72vh;border:0}
+@media(max-width:520px){
+  header{padding:16px 12px 20px}
+  .badge{width:72px;height:72px;margin-bottom:8px}
+  header h1{font-size:27px}
+  header p{font-size:14px;margin-top:7px}
+  main{padding:13px 11px 26px}
+  .search-card{padding:14px;border-radius:16px}
+  .search-row{grid-template-columns:1fr;gap:8px}
+  input,button.search{height:50px}
+  button.search{width:100%}
 }
-@media (max-width:520px) {
-  header { padding:22px 14px 20px; }
-  header h1 { font-size:clamp(25px,7vw,34px); line-height:1.12; letter-spacing:-.4px; }
-  header p { font-size:14px; margin-top:8px; }
-  main { padding:14px 12px 28px; }
-  .search-card { padding:15px; border-radius:16px; }
-  .tabs { gap:6px; }
-  .tab { min-height:45px; font-size:14px; padding:8px 5px; }
-  .search-row { grid-template-columns:1fr; gap:8px; }
-  input,button.search { height:50px; }
-  button.search { width:100%; }
-  .hint { font-size:12px; }
+@media(max-width:360px){
+  .badge{width:66px;height:66px}
+  header h1{font-size:24px}
+  .tab{font-size:13px}
 }
-@media (max-width:360px) {
-  header h1 { font-size:clamp(19px,5.8vw,25px); white-space:nowrap; letter-spacing:-.8px; }
-  .tab { font-size:13px; }
-}
-
-header h1 span{display:block;}
-
 </style>
 </head>
 <body>
 <header>
+  <img class="badge" src="LENCANA_SK_Telok_Pulai.jpeg" alt="Lencana SK Telok Pulai">
   <h1><span>CARIAN JADUAL</span><span>SK TELOK PULAI</span></h1>
   <p>Jadual berkuat kuasa 12 Oktober 2026</p>
 </header>
@@ -185,7 +196,6 @@ header h1 span{display:block;}
       <button class="tab" data-type="Kelas">Kelas</button>
       <button class="tab" data-type="Bilik Khas">Bilik Khas</button>
     </div>
-
     <div class="search-row">
       <input id="q" type="search" placeholder="Taip nama guru..." autocomplete="off">
       <button class="search" onclick="searchNow()">CARI</button>
@@ -203,71 +213,38 @@ header h1 span{display:block;}
 <script>
 const records = [{"type": "Guru", "label": "CIK AINUL ADAWIYAH BINTI JUHEIRI", "file": "JADUAL GURU/CIK AINUL ADAWIYAH BINTI JUHEIRI.pdf"}, {"type": "Guru", "label": "CIK NURUL HAFIZAH IZZATI BINTI MOHAMAD ROFIE", "file": "JADUAL GURU/CIK NURUL HAFIZAH IZZATI BINTI MOHAMAD ROFIE.pdf"}, {"type": "Guru", "label": "EN. ABD RAZAK BIN SULAIMAN", "file": "JADUAL GURU/EN. ABD RAZAK BIN SULAIMAN.pdf"}, {"type": "Guru", "label": "EN. AHMAD FAISAL BIN ABDUL AZIZ", "file": "JADUAL GURU/EN. AHMAD FAISAL BIN ABDUL AZIZ.pdf"}, {"type": "Guru", "label": "EN. AHMAD SHUKRI BIN SAID", "file": "JADUAL GURU/EN. AHMAD SHUKRI BIN SAID.pdf"}, {"type": "Guru", "label": "EN. AZRIN BIN BASARANG", "file": "JADUAL GURU/EN. AZRIN BIN BASARANG.pdf"}, {"type": "Guru", "label": "EN. BALAMURALE A-L VELU", "file": "JADUAL GURU/EN. BALAMURALE A-L VELU.pdf"}, {"type": "Guru", "label": "EN. HASNIZAM BIN TUMIN", "file": "JADUAL GURU/EN. HASNIZAM BIN TUMIN.pdf"}, {"type": "Guru", "label": "EN. KHAIRUL ANUAR BIN OTHMAN", "file": "JADUAL GURU/EN. KHAIRUL ANUAR BIN OTHMAN.pdf"}, {"type": "Guru", "label": "EN. M. TUSIRAN BIN SARIDIN", "file": "JADUAL GURU/EN. M. TUSIRAN BIN SARIDIN.pdf"}, {"type": "Guru", "label": "EN. MOHAMMAD HAFIZ BIN AB MANAP", "file": "JADUAL GURU/EN. MOHAMMAD HAFIZ BIN AB MANAP.pdf"}, {"type": "Guru", "label": "EN. MOHD AZREE BIN MOHD JAMIL", "file": "JADUAL GURU/EN. MOHD AZREE BIN MOHD JAMIL.pdf"}, {"type": "Guru", "label": "EN. MOHD MUHAN BIN ISMAIL", "file": "JADUAL GURU/EN. MOHD MUHAN BIN ISMAIL.pdf"}, {"type": "Guru", "label": "EN. MOHD SYAZLY BIN ABDUL HALIL", "file": "JADUAL GURU/EN. MOHD SYAZLY BIN ABDUL HALIL.pdf"}, {"type": "Guru", "label": "PN. ADLIA BINTI JAMADIN", "file": "JADUAL GURU/PN. ADLIA BINTI JAMADIN.pdf"}, {"type": "Guru", "label": "PN. ARIZAINI BINTI ABDULLAH", "file": "JADUAL GURU/PN. ARIZAINI BINTI ABDULLAH.pdf"}, {"type": "Guru", "label": "PN. HALISA BINTI HUSAIN", "file": "JADUAL GURU/PN. HALISA BINTI HUSAIN.pdf"}, {"type": "Guru", "label": "PN. HASEENA BANU BINTI ABDUL KALAM", "file": "JADUAL GURU/PN. HASEENA BANU BINTI ABDUL KALAM.pdf"}, {"type": "Guru", "label": "PN. HJH. MARIYATI BINTI AWANG", "file": "JADUAL GURU/PN. HJH. MARIYATI BINTI AWANG.pdf"}, {"type": "Guru", "label": "PN. HJH. YUSNITA BINTI MOHAMAD YUSAK", "file": "JADUAL GURU/PN. HJH. YUSNITA BINTI MOHAMAD YUSAK.pdf"}, {"type": "Guru", "label": "PN. KU ZUNAIDAH BINTI KU AHMAD", "file": "JADUAL GURU/PN. KU ZUNAIDAH BINTI KU AHMAD.pdf"}, {"type": "Guru", "label": "PN. NOOR ASYIKIN BINTI MD NOOR", "file": "JADUAL GURU/PN. NOOR ASYIKIN BINTI MD NOOR.pdf"}, {"type": "Guru", "label": "PN. NOOR AZIAH BINTI ZAINAL", "file": "JADUAL GURU/PN. NOOR AZIAH BINTI ZAINAL.pdf"}, {"type": "Guru", "label": "PN. NOOR HAYATI BINTI HARUN", "file": "JADUAL GURU/PN. NOOR HAYATI BINTI HARUN.pdf"}, {"type": "Guru", "label": "PN. NORHIDAYAH BINTI JAILANI", "file": "JADUAL GURU/PN. NORHIDAYAH BINTI JAILANI.pdf"}, {"type": "Guru", "label": "PN. NORMALINA BINTI MOHD SANI", "file": "JADUAL GURU/PN. NORMALINA BINTI MOHD SANI.pdf"}, {"type": "Guru", "label": "PN. NORRINA BINTI AHMAD JOHARI", "file": "JADUAL GURU/PN. NORRINA BINTI AHMAD JOHARI.pdf"}, {"type": "Guru", "label": "PN. NORSYAHIDA BINTI IDRIS", "file": "JADUAL GURU/PN. NORSYAHIDA BINTI IDRIS.pdf"}, {"type": "Guru", "label": "PN. SITI NURBAYA BINTI MOHD AMIN", "file": "JADUAL GURU/PN. SITI NURBAYA BINTI MOHD AMIN.pdf"}, {"type": "Guru", "label": "PN. SITI SULHANA BINTI MOHD NAWI", "file": "JADUAL GURU/PN. SITI SULHANA BINTI MOHD NAWI.pdf"}, {"type": "Guru", "label": "PN. SULASENA A-P PALANIMUTHU", "file": "JADUAL GURU/PN. SULASENA A-P PALANIMUTHU.pdf"}, {"type": "Guru", "label": "PN. TEE SUAT RING", "file": "JADUAL GURU/PN. TEE SUAT RING.pdf"}, {"type": "Guru", "label": "PN. THANALETCHUMY A-P MANICKAM", "file": "JADUAL GURU/PN. THANALETCHUMY A-P MANICKAM.pdf"}, {"type": "Guru", "label": "PN. THULSY A-P SUBRAMANIAM", "file": "JADUAL GURU/PN. THULSY A-P SUBRAMANIAM.pdf"}, {"type": "Guru", "label": "PN. VANITHAMANI A-P BALASANTHER", "file": "JADUAL GURU/PN. VANITHAMANI A-P BALASANTHER.pdf"}, {"type": "Guru", "label": "PN. VICKNEASVARIE A-P RAMAMUTHIE", "file": "JADUAL GURU/PN. VICKNEASVARIE A-P RAMAMUTHIE.pdf"}, {"type": "Guru", "label": "PN. ZAHIRATUL FIQRIYYAH BINTI ZAKARIA", "file": "JADUAL GURU/PN. ZAHIRATUL FIQRIYYAH BINTI ZAKARIA.pdf"}, {"type": "Guru", "label": "PN. ZAITON BINTI HAMID", "file": "JADUAL GURU/PN. ZAITON BINTI HAMID.pdf"}, {"type": "Kelas", "label": "4 UIA", "file": "JADUAL KELAS/4 UIA.pdf"}, {"type": "Kelas", "label": "4 UKM", "file": "JADUAL KELAS/4 UKM.pdf"}, {"type": "Kelas", "label": "4 UM", "file": "JADUAL KELAS/4 UM.pdf"}, {"type": "Kelas", "label": "4 UPM", "file": "JADUAL KELAS/4 UPM.pdf"}, {"type": "Kelas", "label": "4 UTM", "file": "JADUAL KELAS/4 UTM.pdf"}, {"type": "Kelas", "label": "5 UIA", "file": "JADUAL KELAS/5 UIA.pdf"}, {"type": "Kelas", "label": "5 UKM", "file": "JADUAL KELAS/5 UKM.pdf"}, {"type": "Kelas", "label": "5 UM", "file": "JADUAL KELAS/5 UM.pdf"}, {"type": "Kelas", "label": "5 UPM", "file": "JADUAL KELAS/5 UPM.pdf"}, {"type": "Kelas", "label": "5 UTM", "file": "JADUAL KELAS/5 UTM.pdf"}, {"type": "Kelas", "label": "6 UIA", "file": "JADUAL KELAS/6 UIA.pdf"}, {"type": "Kelas", "label": "6 UKM", "file": "JADUAL KELAS/6 UKM.pdf"}, {"type": "Kelas", "label": "6 UM", "file": "JADUAL KELAS/6 UM.pdf"}, {"type": "Kelas", "label": "6 UPM", "file": "JADUAL KELAS/6 UPM.pdf"}, {"type": "Kelas", "label": "6 USM", "file": "JADUAL KELAS/6 USM.pdf"}, {"type": "Kelas", "label": "6 UTM", "file": "JADUAL KELAS/6 UTM.pdf"}, {"type": "Kelas", "label": "Halaman_17", "file": "JADUAL KELAS/Halaman_17.pdf"}, {"type": "Kelas", "label": "Halaman_18", "file": "JADUAL KELAS/Halaman_18.pdf"}, {"type": "Bilik Khas", "label": "BK MZK", "file": "JADUAL BILIK KHAS/BK MZK.pdf"}, {"type": "Bilik Khas", "label": "BK PEMULIHAN", "file": "JADUAL BILIK KHAS/BK PEMULIHAN.pdf"}, {"type": "Bilik Khas", "label": "BK RBT", "file": "JADUAL BILIK KHAS/BK RBT.pdf"}, {"type": "Bilik Khas", "label": "Halaman_12", "file": "JADUAL BILIK KHAS/Halaman_12.pdf"}, {"type": "Bilik Khas", "label": "ICT1", "file": "JADUAL BILIK KHAS/ICT1.pdf"}, {"type": "Bilik Khas", "label": "ICT2", "file": "JADUAL BILIK KHAS/ICT2.pdf"}, {"type": "Bilik Khas", "label": "JQAF1", "file": "JADUAL BILIK KHAS/JQAF1.pdf"}, {"type": "Bilik Khas", "label": "JQAF2", "file": "JADUAL BILIK KHAS/JQAF2.pdf"}, {"type": "Bilik Khas", "label": "JQAF3", "file": "JADUAL BILIK KHAS/JQAF3.pdf"}, {"type": "Bilik Khas", "label": "MKML SN", "file": "JADUAL BILIK KHAS/MKML SN.pdf"}, {"type": "Bilik Khas", "label": "PSS (BI)", "file": "JADUAL BILIK KHAS/PSS (BI).pdf"}, {"type": "Bilik Khas", "label": "PSS (BM)", "file": "JADUAL BILIK KHAS/PSS (BM).pdf"}, {"type": "Bilik Khas", "label": "SURAU 1", "file": "JADUAL BILIK KHAS/SURAU 1.pdf"}, {"type": "Bilik Khas", "label": "SURAU 2", "file": "JADUAL BILIK KHAS/SURAU 2.pdf"}];
 let currentType = "Guru";
+const q=document.getElementById("q"), message=document.getElementById("message");
+const viewer=document.getElementById("viewer"), pdf=document.getElementById("pdf");
+const viewerTitle=document.getElementById("viewerTitle");
+const placeholders={"Guru":"Taip nama guru...","Kelas":"Taip nama kelas...","Bilik Khas":"Taip nama bilik khas..."};
 
-const q = document.getElementById("q");
-const message = document.getElementById("message");
-const viewer = document.getElementById("viewer");
-const pdf = document.getElementById("pdf");
-const viewerTitle = document.getElementById("viewerTitle");
-
-const placeholders = {
-  "Guru":"Taip nama guru...",
-  "Kelas":"Taip nama kelas...",
-  "Bilik Khas":"Taip nama bilik khas..."
-};
-
-document.querySelectorAll(".tab").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+document.querySelectorAll(".tab").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
     btn.classList.add("active");
-    currentType = btn.dataset.type;
-    q.placeholder = placeholders[currentType];
-    q.value = "";
-    message.style.display = "none";
-    viewer.style.display = "none";
+    currentType=btn.dataset.type;
+    q.placeholder=placeholders[currentType];
+    q.value="";
+    message.style.display="none";
+    viewer.style.display="none";
     q.focus();
   });
 });
-
-function searchNow() {
-  const term = q.value.trim().toLowerCase();
-  viewer.style.display = "none";
-  message.style.display = "none";
-
-  if (!term) {
-    showMessage("Sila masukkan nama untuk carian.");
-    return;
-  }
-
-  const matches = records.filter(r =>
-    r.type === currentType && r.label.toLowerCase().includes(term)
-  );
-
-  if (matches.length === 0) {
-    showMessage("Tiada rekod dijumpai.");
-    return;
-  }
-
-  if (matches.length > 1) {
-    showMessage("Terdapat lebih daripada satu padanan. Sila taip nama dengan lebih lengkap.");
-    return;
-  }
-
-  const r = matches[0];
-  viewerTitle.textContent = r.label;
-  pdf.src = encodeURI(r.file);
-  viewer.style.display = "block";
-  viewer.scrollIntoView({behavior:"smooth", block:"start"});
+function searchNow(){
+  const term=q.value.trim().toLowerCase();
+  viewer.style.display="none"; message.style.display="none";
+  if(!term){showMessage("Sila masukkan nama untuk carian.");return;}
+  const matches=records.filter(r=>r.type===currentType && r.label.toLowerCase().includes(term));
+  if(matches.length===0){showMessage("Tiada rekod dijumpai.");return;}
+  if(matches.length>1){showMessage("Terdapat lebih daripada satu padanan. Sila taip nama dengan lebih lengkap.");return;}
+  const r=matches[0];
+  viewerTitle.textContent=r.label;
+  pdf.src=encodeURI(r.file);
+  viewer.style.display="block";
+  viewer.scrollIntoView({behavior:"smooth",block:"start"});
 }
-
-function showMessage(msg) {
-  message.textContent = msg;
-  message.style.display = "block";
-}
-
-q.addEventListener("keydown", e => {
-  if (e.key === "Enter") searchNow();
-});
+function showMessage(msg){message.textContent=msg;message.style.display="block";}
+q.addEventListener("keydown",e=>{if(e.key==="Enter")searchNow();});
 </script>
 </body>
 </html>
