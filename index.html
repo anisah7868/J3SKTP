@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#18a9a0">
+<title>Carian Jadual SK Telok Pulai</title>
+<style>
+:root{--teal:#18a9a0;--blue:#1677b7;--pink:#f06a8a;--text:#17324d;--muted:#657786;--line:#d9e6e6}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#eafcff,#fff0f6);color:var(--text)}
+header{background:linear-gradient(135deg,#087f7a,var(--blue));color:#fff;text-align:center;padding:16px 12px}
+.badge{width:72px;height:72px;object-fit:contain;background:#fff;border-radius:50%;padding:5px}header h1{margin:8px 0 0;font-size:clamp(25px,7vw,34px);line-height:1.12}header h1 span{display:block}header p{margin:8px 0 0;font-size:14px}
+main{max-width:720px;margin:auto;padding:13px 11px 30px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 12px;box-shadow:0 8px 24px #00000012}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.tab{min-height:46px;padding:8px 5px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--text);font-weight:700;cursor:pointer}.tab.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.search{display:grid;grid-template-columns:1fr auto;gap:8px}input{width:100%;height:51px;padding:0 14px;border:2px solid #b8dede;border-radius:12px;font-size:17px;outline:none}input:focus{border-color:var(--teal)}.clear{height:51px;padding:0 15px;border:0;border-radius:12px;background:var(--pink);color:#fff;font-weight:700;cursor:pointer}
+.hint{text-align:center;color:var(--muted);font-size:13px;margin:10px 0 4px}.results{display:grid;gap:8px;margin-top:10px}.result{width:100%;text-align:left;border:1px solid #cfe0e0;background:#f8ffff;border-radius:12px;padding:12px;cursor:pointer;color:var(--text)}.result:hover{background:#eefafa;border-color:var(--teal)}.result strong{display:block;font-size:15px}.result small{color:var(--muted)}
+.viewer{margin-top:14px;display:none}.viewer iframe{width:100%;height:70vh;min-height:520px;border:1px solid var(--line);border-radius:12px}.viewer-title{font-weight:700;margin:0 0 8px}
+</style>
+</head>
+<body>
+<header><img class="badge" src="LENCANA_SK_Telok_Pulai.png" alt="Lencana SK Telok Pulai"><h1><span>CARIAN JADUAL</span><span>SK TELOK PULAI</span></h1><p>Jadual berkuat kuasa 12 Oktober 2026</p></header>
+<main><section class="card">
+<div class="tabs"><button class="tab active" data-type="guru">Guru</button><button class="tab" data-type="kelas">Kelas</button><button class="tab" data-type="bilik">Bilik Khas</button></div>
+<div class="search"><input id="q" type="search" autocomplete="off" placeholder="Taip nama guru..."><button class="clear" id="clear">Padam</button></div>
+<div class="hint" id="hint">Taip huruf atau nama untuk melihat hasil carian.</div><div class="results" id="results"></div>
+<div class="viewer" id="viewer"><div class="viewer-title" id="viewerTitle"></div><iframe id="pdf" title="Jadual PDF"></iframe></div>
+</section></main>
+<script>
+const data={
+  guru:[
+      {label:"EN. MOHD MUHAN BIN ISMAIL", url:"GURU/EN. MOHD MUHAN BIN ISMAIL.pdf"},
+      {label:"PN. SULASENA A-P PALANIMUTHU", url:"GURU/PN. SULASENA A-P PALANIMUTHU.pdf"},
+      {label:"PN. TEE SUAT RING", url:"GURU/PN. TEE SUAT RING.pdf"},
+      {label:"EN. AHMAD SHUKRI BIN SAID", url:"GURU/EN. AHMAD SHUKRI BIN SAID.pdf"},
+      {label:"PN. ADLIA BINTI JAMADIN", url:"GURU/PN. ADLIA BINTI JAMADIN.pdf"},
+      {label:"CIK AINUL ADAWIYAH BINTI JUHEIRI", url:"GURU/CIK AINUL ADAWIYAH BINTI JUHEIRI.pdf"},
+      {label:"PN. NORHIDAYAH BINTI JAILANI", url:"GURU/PN. NORHIDAYAH BINTI JAILANI.pdf"},
+      {label:"EN. MOHAMMAD HAFIZ BIN AB MANAP", url:"GURU/EN. MOHAMMAD HAFIZ BIN AB MANAP.pdf"},
+      {label:"PN. NOOR AZIAH BINTI ZAINAL", url:"GURU/PN. NOOR AZIAH BINTI ZAINAL.pdf"},
+      {label:"PN. NORMALINA BINTI MOHD SANI", url:"GURU/PN. NORMALINA BINTI MOHD SANI.pdf"},
+      {label:"EN. KHAIRUL ANUAR BIN OTHMAN", url:"GURU/EN. KHAIRUL ANUAR BIN OTHMAN.pdf"},
+      {label:"PN. NORRINA BINTI AHMAD JOHARI", url:"GURU/PN. NORRINA BINTI AHMAD JOHARI.pdf"},
+      {label:"EN. M. TUSIRAN BIN SARIDIN", url:"GURU/EN. M. TUSIRAN BIN SARIDIN.pdf"},
+      {label:"PN. NOOR ASYIKIN BINTI MD NOOR", url:"GURU/PN. NOOR ASYIKIN BINTI MD NOOR.pdf"},
+      {label:"CIK NURUL HAFIZAH IZZATI BINTI MOHAMAD ROFIE", url:"GURU/CIK NURUL HAFIZAH IZZATI BINTI MOHAMAD ROFIE.pdf"},
+      {label:"EN. AZRIN BIN BASARANG", url:"GURU/EN. AZRIN BIN BASARANG.pdf"},
+      {label:"PN. SITI SULHANA BINTI MOHD NAWI", url:"GURU/PN. SITI SULHANA BINTI MOHD NAWI.pdf"},
+      {label:"PN. VICKNEASVARIE A-P RAMAMUTHIE", url:"GURU/PN. VICKNEASVARIE A-P RAMAMUTHIE.pdf"},
+      {label:"PN. VANITHAMANI A-P BALASANTHER", url:"GURU/PN. VANITHAMANI A-P BALASANTHER.pdf"},
+      {label:"PN. HJH. MARIYATI BINTI AWANG", url:"GURU/PN. HJH. MARIYATI BINTI AWANG.pdf"},
+      {label:"PN. HASEENA BANU BINTI ABDUL KALAM", url:"GURU/PN. HASEENA BANU BINTI ABDUL KALAM.pdf"},
+      {label:"EN. ABD RAZAK BIN SULAIMAN", url:"GURU/EN. ABD RAZAK BIN SULAIMAN.pdf"},
+      {label:"PN. NOOR HAYATI BINTI HARUN", url:"GURU/PN. NOOR HAYATI BINTI HARUN.pdf"},
+      {label:"EN. MOHD SYAZLY BIN ABDUL HALIL", url:"GURU/EN. MOHD SYAZLY BIN ABDUL HALIL.pdf"},
+      {label:"EN. MOHD AZREE BIN MOHD JAMIL", url:"GURU/EN. MOHD AZREE BIN MOHD JAMIL.pdf"},
+      {label:"EN. HASNIZAM BIN TUMIN", url:"GURU/EN. HASNIZAM BIN TUMIN.pdf"},
+      {label:"PN. KU ZUNAIDAH BINTI KU AHMAD", url:"GURU/PN. KU ZUNAIDAH BINTI KU AHMAD.pdf"},
+      {label:"PN. ZAHIRATUL FIQRIYYAH BINTI ZAKARIA", url:"GURU/PN. ZAHIRATUL FIQRIYYAH BINTI ZAKARIA.pdf"},
+      {label:"PN. THANALETCHUMY A-P MANICKAM", url:"GURU/PN. THANALETCHUMY A-P MANICKAM.pdf"},
+      {label:"PN. ARIZAINI BINTI ABDULLAH", url:"GURU/PN. ARIZAINI BINTI ABDULLAH.pdf"},
+      {label:"PN. HJH. YUSNITA BINTI MOHAMAD YUSAK", url:"GURU/PN. HJH. YUSNITA BINTI MOHAMAD YUSAK.pdf"},
+      {label:"PN. NORSYAHIDA BINTI IDRIS", url:"GURU/PN. NORSYAHIDA BINTI IDRIS.pdf"},
+      {label:"PN. ZAITON BINTI HAMID", url:"GURU/PN. ZAITON BINTI HAMID.pdf"},
+      {label:"PN. THULSY A-P SUBRAMANIAM", url:"GURU/PN. THULSY A-P SUBRAMANIAM.pdf"},
+      {label:"EN. AHMAD FAISAL BIN ABDUL AZIZ", url:"GURU/EN. AHMAD FAISAL BIN ABDUL AZIZ.pdf"},
+      {label:"EN. BALAMURALE A-L VELU", url:"GURU/EN. BALAMURALE A-L VELU.pdf"},
+      {label:"PN. SITI NURBAYA BINTI MOHD AMIN", url:"GURU/PN. SITI NURBAYA BINTI MOHD AMIN.pdf"},
+      {label:"PN. HALISA BINTI HUSAIN", url:"GURU/PN. HALISA BINTI HUSAIN.pdf"}
+    ],
+  kelas:[
+      {label:"4 UIA", url:"KELAS/4 UIA.pdf"},
+      {label:"4 UTM", url:"KELAS/4 UTM.pdf"},
+      {label:"4 UPM", url:"KELAS/4 UPM.pdf"},
+      {label:"4 UM", url:"KELAS/4 UM.pdf"},
+      {label:"4 UKM", url:"KELAS/4 UKM.pdf"},
+      {label:"5 UIA", url:"KELAS/5 UIA.pdf"},
+      {label:"5 UTM", url:"KELAS/5 UTM.pdf"},
+      {label:"5 UPM", url:"KELAS/5 UPM.pdf"},
+      {label:"5 UM", url:"KELAS/5 UM.pdf"},
+      {label:"5 UKM", url:"KELAS/5 UKM.pdf"},
+      {label:"6 UIA", url:"KELAS/6 UIA.pdf"},
+      {label:"6 UTM", url:"KELAS/6 UTM.pdf"},
+      {label:"6 UPM", url:"KELAS/6 UPM.pdf"},
+      {label:"6 UM", url:"KELAS/6 UM.pdf"},
+      {label:"6 UKM", url:"KELAS/6 UKM.pdf"},
+      {label:"6 USM", url:"KELAS/6 USM.pdf"},
+      {label:"PRA ARIF", url:"KELAS/PRA ARIF.pdf"},
+      {label:"PRA BIJAK", url:"KELAS/PRA BIJAK.pdf"}
+    ],
+  bilik:[
+      {label:"BK PEMULIHAN", url:"B_KHAS/BK PEMULIHAN.pdf"},
+      {label:"PSS (BM)", url:"B_KHAS/PSS (BM).pdf"},
+      {label:"PSS (BI)", url:"B_KHAS/PSS (BI).pdf"},
+      {label:"MKML SN", url:"B_KHAS/MKML SN.pdf"},
+      {label:"ICT1", url:"B_KHAS/ICT1.pdf"},
+      {label:"ICT2", url:"B_KHAS/ICT2.pdf"},
+      {label:"SURAU 1", url:"B_KHAS/SURAU 1.pdf"},
+      {label:"SURAU 2", url:"B_KHAS/SURAU 2.pdf"},
+      {label:"JQAF1", url:"B_KHAS/JQAF1.pdf"},
+      {label:"JQAF2", url:"B_KHAS/JQAF2.pdf"},
+      {label:"JQAF3", url:"B_KHAS/JQAF3.pdf"},
+      {label:"BK.MRL", url:"B_KHAS/BK.MRL.pdf"},
+      {label:"BK MZK", url:"B_KHAS/BK MZK.pdf"},
+      {label:"BK RBT", url:"B_KHAS/BK RBT.pdf"}
+    ]
+};
+let type="guru";
+const q=document.getElementById("q"),results=document.getElementById("results"),hint=document.getElementById("hint"),viewer=document.getElementById("viewer"),viewerTitle=document.getElementById("viewerTitle"),pdf=document.getElementById("pdf");
+function render(){
+ const term=q.value.trim().toLowerCase(); results.innerHTML=""; viewer.style.display="none"; pdf.src="";
+ if(!term){hint.textContent="Taip huruf atau nama untuk melihat hasil carian.";return}
+ const found=data[type].filter(x=>x.label.toLowerCase().includes(term));
+ hint.textContent=found.length?`${found.length} hasil ditemui. Klik nama untuk buka PDF.`:"Tiada hasil carian.";
+ found.forEach(x=>{const b=document.createElement("button");b.className="result";b.innerHTML=`<strong>${x.label}</strong><small>Klik untuk buka PDF</small>`;b.onclick=()=>{pdf.src=encodeURI(x.url);viewerTitle.textContent=x.label;viewer.style.display="block";viewer.scrollIntoView({behavior:"smooth",block:"start"})};results.appendChild(b)})
+}
+document.querySelectorAll(".tab").forEach(btn=>btn.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));btn.classList.add("active");type=btn.dataset.type;q.value="";q.placeholder=type==="guru"?"Taip nama guru...":type==="kelas"?"Taip kelas, contoh: 5...":"Taip nama bilik khas...";render();q.focus()});
+q.addEventListener("input",render);document.getElementById("clear").onclick=()=>{q.value="";render();q.focus()};
+</script>
+</body></html>
