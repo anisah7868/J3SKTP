@@ -23,7 +23,14 @@ main{max-width:720px;margin:auto;padding:13px 11px 30px}.card{background:#fff;bo
 <div class="tabs"><button class="tab active" data-type="guru">Guru</button><button class="tab" data-type="kelas">Kelas</button><button class="tab" data-type="bilik">Bilik Khas</button></div>
 <div class="search"><input id="q" type="search" autocomplete="off" placeholder="Taip nama guru..."><button class="clear" id="clear">Padam</button></div>
 <div class="hint" id="hint">Taip huruf atau nama untuk melihat hasil carian.</div><div class="results" id="results"></div>
-<div class="viewer" id="viewer"><div class="viewer-title" id="viewerTitle"></div><iframe id="pdf" title="Jadual PDF"></iframe></div>
+<div class="viewer" id="viewer">
+  <div class="viewer-title" id="viewerTitle"></div>
+  <div class="viewer-actions">
+    <button class="download" id="downloadBtn">📥 MUAT TURUN PDF</button>
+    <button class="back" id="backBtn">↩ KEMBALI KE CARIAN</button>
+  </div>
+  <iframe id="pdf" title="Jadual PDF"></iframe>
+</div>
 </section></main>
 <script>
 const data={
@@ -105,15 +112,18 @@ const data={
     ]
 };
 let type="guru";
-const q=document.getElementById("q"),results=document.getElementById("results"),hint=document.getElementById("hint"),viewer=document.getElementById("viewer"),viewerTitle=document.getElementById("viewerTitle"),pdf=document.getElementById("pdf");
+const q=document.getElementById("q"),results=document.getElementById("results"),hint=document.getElementById("hint"),viewer=document.getElementById("viewer"),viewerTitle=document.getElementById("viewerTitle"),pdf=document.getElementById("pdf"),downloadBtn=document.getElementById("downloadBtn"),backBtn=document.getElementById("backBtn");
+let currentUrl="";
 function render(){
  const term=q.value.trim().toLowerCase(); results.innerHTML=""; viewer.style.display="none"; pdf.src="";
  if(!term){hint.textContent="Taip huruf atau nama untuk melihat hasil carian.";return}
  const found=data[type].filter(x=>x.label.toLowerCase().includes(term));
  hint.textContent=found.length?`${found.length} hasil ditemui. Klik nama untuk buka PDF.`:"Tiada hasil carian.";
- found.forEach(x=>{const b=document.createElement("button");b.className="result";b.innerHTML=`<strong>${x.label}</strong><small>Klik untuk buka PDF</small>`;b.onclick=()=>{pdf.src=x.url;viewerTitle.textContent=x.label;viewer.style.display="block";viewer.scrollIntoView({behavior:"smooth",block:"start"})};results.appendChild(b)})
+ found.forEach(x=>{const b=document.createElement("button");b.className="result";b.innerHTML=`<strong>${x.label}</strong><small>Klik untuk buka PDF</small>`;b.onclick=()=>{currentUrl=x.url;pdf.src=x.url;viewerTitle.textContent=x.label;viewer.style.display="block";viewer.scrollIntoView({behavior:"smooth",block:"start"})};results.appendChild(b)})
 }
 document.querySelectorAll(".tab").forEach(btn=>btn.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));btn.classList.add("active");type=btn.dataset.type;q.value="";q.placeholder=type==="guru"?"Taip nama guru...":type==="kelas"?"Taip kelas, contoh: 5...":"Taip nama bilik khas...";render();q.focus()});
 q.addEventListener("input",render);document.getElementById("clear").onclick=()=>{q.value="";render();q.focus()};
+downloadBtn.onclick=()=>{if(currentUrl){window.open(currentUrl,"_blank")}};
+backBtn.onclick=()=>{viewer.style.display="none";pdf.src="";currentUrl="";q.focus();window.scrollTo({top:0,behavior:"smooth"})};
 </script>
 </body></html>
